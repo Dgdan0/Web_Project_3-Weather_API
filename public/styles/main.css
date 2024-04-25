@@ -1,16 +1,64 @@
 /*      ALL      */
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=PT+Serif&display=swap');
 
+*{
+    margin: 0;
+    padding: 0;
+    color: #EEEEEE;
+}
 
 
 
 body{
     display: flex;
+    flex-direction: column;
+    background: #222831;
 }
 
 /*      Header      */
 
+#header-container{
+    font-size: 25px;
+    background: #393e46;
+ 
+}
 
+.nav-top{
+    display: flex;
+    justify-content: space-between;
+}
 
+#header-container ul{
+    list-style-type: none;
+}
+
+#header-container a{
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease 0s;
+    margin: 25px;
+}
+#header-container a:hover{
+    color: #F38181;
+}
+
+#header-container button{
+    background: inherit;
+    border: 2px solid transparent; /* Add transparent border */
+    font-size: inherit;
+    transition: all 0.3s ease 0s;
+    padding: 10px;
+    margin: 10px;
+    font-family: PT_Serif;
+    font-weight: 600; 
+}
+
+#header-container button:hover{
+    color: #F38181;
+    /*background: #515355;*/
+    border-radius: 200px;
+    border-color: #FFD1D1;
+}
 
 
 
