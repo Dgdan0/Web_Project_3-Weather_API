@@ -54,10 +54,10 @@ body{
 }
 
 #header-container button:hover{
-    color: #F38181;
+    color: #a676dd;
     /*background: #515355;*/
     border-radius: 200px;
-    border-color: #FFD1D1;
+    border-color: #a676dd;
 }
 
 
