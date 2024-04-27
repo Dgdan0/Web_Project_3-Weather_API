@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <%- include('partials/header.ejs')%>
+    
+    <div id="main-container">
+        <h1 id="main-title">Welcome Back</h1>
+        <div id="main-space">
+            <div id="left-side">
+                <h3>Daily</h3>
+
+                <h3>WOWOW</h3>
+            </div>
+            <div id="right-side">
+                <div class="autocomplete-container">
+                    <div class="search-container">
+                        <span class="fa fa-search"></span>
+                        <form id="city-form" action="submit-city" method="POST">
+                            <input list="autocomplete-list" type="text" id="city-search" name="city" placeholder="Enter city name here ..." />
+                            <datalist id="autocomplete-list"></datalist>
+                            <option value="paris"></option>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer.ejs')%>   
+    
+    <script src="/autoCompleteCities.js"></script>
+</body>
+</html>
