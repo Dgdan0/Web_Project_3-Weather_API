@@ -13,14 +13,8 @@ document.getElementById("city-search").addEventListener("input", function() {
         // Create dropdown suggestions
         filteredCities.forEach(city => {
             const option = document.createElement("option");
-            // item.className = "autocomplete-item";
             option.value = city;
             option.classList = "autocomplete-item";
-            // item.addEventListener("click", function() {
-            //     // Set the input field with the selected city
-            //     document.getElementById("city-search").value = city;
-            //     autocompleteList.innerHTML = ""; // Clear the list after selection
-            // });
             autocompleteList.appendChild(option);
             console.log(option);
         });

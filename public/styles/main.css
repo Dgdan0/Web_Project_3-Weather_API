@@ -66,19 +66,28 @@ body{
     background: #ddd;
 }
 
+.header-right{
+    display: flex;
+
+}
+
 /*!      Center      */
 
 #main-container{
     display: flex;
     flex-direction: column;
     flex: 1;
-    width: 60%;
+    width: 80%;
     margin: 0 auto;
     /* border: 5px solid black; */
 
 }
 #main-title{
+    font-size: 60px;
     text-align: center;
+}
+
+#main-title h1{
 }
 
 #main-space{
@@ -88,7 +97,9 @@ body{
 }
 
 #right-side{
-    width: 25%;
+    display: flex;
+    flex-direction: column;
+    width: 15%;
     background: rgba(70,93,145,0.3);
     border-radius: 20px;
 }
@@ -97,7 +108,18 @@ body{
     flex: 1;
 }
 
-/*!         Right Side        */
+#main-title-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#main-title-container h1{
+    margin-right: 10px;
+}
+
+
+/*!         Search Bar        */
 
 #city-search{
     background: inherit;
@@ -109,21 +131,21 @@ body{
 }
 #city-search::placeholder{
     text-align: center;
-    padding-left: 36px;
 }
 #city-search:focus::placeholder{
     color: transparent;
 }
 .search-container{
+    display: flex;
     flex: 1;
     border: 3px solid #344361;
     border-radius: 20px 20px 0 0;
+    align-items: center;
+    justify-content: center;
 }
 
 .fa-search{
-    position: relative;
-    top: 15px;
-    left: 10px;
+    padding: 0 0 0 20px;
     color: white;
     font-size: 14px;
 }
@@ -141,6 +163,12 @@ body{
 
 datalist{
     display: block;
+}
+
+.autocomplete-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .autocomplete-item{
@@ -169,6 +197,131 @@ datalist{
     text-align: center;
 }
 
+#fiveDay-container{
+    display: flex;
+    justify-content: space-around;
+    min-height: 230px;
+}
+
+#daily-container{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#fiveDay-title, #daily-title{
+    display: flex;
+    margin: 20px 0 5px 0;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#fiveDay-title h3, #daily-title h3{
+    display: flex;
+    align-items: flex-end;
+    margin-left: 10px;
+}
+
+#fiveDay-title h2, #daily-title h2{
+    margin-left: 25px; 
+}
+#fiveDay-title #fiveDay-title-text, #daily-title #daily-title-text{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+#forecast-time{
+    margin-right: 50px;
+    color: black;
+    background: #465D91;
+    border: none;
+    border-radius: 25px;
+    width: 150;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.one-day{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    background: rgba(70,93,145,0.3);
+    border: 3px solid #344361;
+    border-radius: 20px;
+    padding: 0 20px 20px 20px;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.one-day p{
+    text-align: center;
+}
+
+.one-day-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.one-day-temp p{
+    
+    font-size: 30px;
+    margin-top: 16px;
+}
+
+.degree-symbol{
+    font-size: 20px;
+}
+
+/*!         Right Side         */
+
+#right-side{
+    border: 3px solid #344361;
+}
+
+.right-date{
+    display: flex;
+    font-size: 50px;
+    height: 125px;
+    border-bottom: 25px solid #344361;
+    align-items: center;
+}
+
+.right-date{
+    padding-left: 25px;
+}
+
+.right-date p.right-dow{
+    font-size: 20px; /* This is your desired font size */
+}
+
+.right-icon{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0 40px 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-info{
+    margin-left: 20px;
+}
+
+.info-container{
+    display: flex;
+}
+
+.info-container i{
+    margin-right: 10px;
+}
+
+.unit{
+    font-size: 0.8em;
+    margin-left: 2px;
+}
 
 /*!      Footer    */
 footer{
@@ -209,4 +362,10 @@ footer{
 
 .footer-container {
     margin-top: auto;
+}
+
+
+
+#weatherData{
+    display: none;
 }

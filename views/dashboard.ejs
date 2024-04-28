@@ -8,30 +8,68 @@
     <%- include('partials/header.ejs')%>
     
     <div id="main-container">
-        <h1 id="main-title">Welcome Back</h1>
+        <%if(locals.cityName){%>
+            <div id="main-title-container">
+                <h1 id="main-title">Weather at <%=locals.cityName%></h1>
+            </div>
+            <%}else{%>
+                <h1 id="main-title">Welcome</h1>
+            <%}%>
         <div id="main-space">
             <div id="left-side">
-                <h3>Daily</h3>
+                <div id="fiveDay-title">
+                    <div id="fiveDay-title-text">
+                        <h2>Five day </h2>
+                        <h3 id="daily-time">forecast for <%=locals.fiveWeather[0].time%></h3>    
+                    </div>
+                    <select id="forecast-time">
+                        <option value="" disabled selected hidden>Select a time</option>
+                        <%for(let i=0; i<24; i+=3){%>
+                            <option value="<%=i%>"><%=i%>:00</option>
+                        <%}%>
+                    </select> 
+                </div>
+                <div id="fiveDay-container">
+                    <%if(locals.fiveWeather){%>
+                        <%for(let i=0; i<locals.fiveWeather.length; i++){%>
+                            <div class="one-day one-day-<%=i%>">
+                                <div class="one-day-icon">
+                                    <img src="https://openweathermap.org/img/wn/<%=locals.fiveWeather[i].icon%>@2x.png" alt="Weather icon">
+                                </div>
+                                <div class="one-day-dow">
+                                    <p><%=locals.fiveWeather[i].dow%></p>
+                                </div>
+                                <div class="one-day-temp">
+                                    <p><span class="temp-data"><%=locals.fiveWeather[i].temp%></span><span class="degree-symbol">&deg;</span></p>
+                                </div>
+                            </div>
+                        <%}%>
+                    <%}else if(locals.error){%>
+                        <p>Error<%locals.error%></p>
+                    <%}%>
+                </div>
+                <div class="daily-container">
+                    <div id="daily-title">
+                        <div id="daily-title-text">
+                            <h2>Daily forecast</h2>
+                            <h3> for the 25/9</h3>
+                        </div>
+                    </div>
+                    <div class="daily-info-container">
+                        
 
-                <h3>WOWOW</h3>
-            </div>
-            <div id="right-side">
-                <div class="autocomplete-container">
-                    <div class="search-container">
-                        <span class="fa fa-search"></span>
-                        <form id="city-form" action="submit-city" method="POST">
-                            <input list="autocomplete-list" type="text" id="city-search" name="city" placeholder="Enter city name here ..." />
-                            <datalist id="autocomplete-list"></datalist>
-                            <option value="paris"></option>
-                        </form>
                     </div>
                 </div>
+            </div>
+            <div id="right-side">
             </div>
         </div>
     </div>
 
     <%- include('partials/footer.ejs')%>   
-    
+
+    <div id="weatherData" data-weather='<%- JSON.stringify(locals.fiveWeather) %>' style="display: none;"></div>
+    <script src="/scripts.js"></script>
     <script src="/autoCompleteCities.js"></script>
 </body>
 </html>

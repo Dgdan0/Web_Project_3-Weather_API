@@ -12,12 +12,19 @@
             <ul class="logo">
                 <li><a href="/"><button>Weather</button></a></li>
             </ul>
-            <ul class="items">
-                <li><a class="myButton" href="/dashboard"><button class= "myButton">My Dashboard</button></a></li>
+            <ul class="header-right">
+                <div class="autocomplete-container">
+                    <div class="search-container">
+                        <span class="fa fa-search"></span>
+                        <form id="city-form" action="submit-city" method="POST">
+                            <input list="autocomplete-list" type="text" id="city-search" name="city" placeholder="Enter city name here ..." />
+                            <datalist id="autocomplete-list"></datalist>
+                        </form>
+                    </div>
+                </div>
             </ul>
         </nav>
     </div>
 
-    <script src="/script.js"></script>
 </header>    
 </html>
