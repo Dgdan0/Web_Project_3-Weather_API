@@ -1,3 +1,7 @@
+import { createGraph } from '/createGraph.js';
+
+
+// Show One-Day Data on the right side
 document.querySelectorAll('.one-day').forEach( (element) => {
     element.addEventListener('click', () => {
         let weatherData = JSON.parse(document.getElementById('weatherData').dataset.weather);
@@ -35,8 +39,8 @@ document.querySelectorAll('.one-day').forEach( (element) => {
     })
 })
 
-
-const changeDashboard = (cityName, fiveWeather) =>{
+// Change Five Day forecast dashboard data based on selected time
+const changeFiveDashboard = (fiveWeather) =>{
     //Time Change
     let dailyTimeElement = document.querySelector('#daily-time');
     dailyTimeElement.textContent = 'forecast for ' + fiveWeather[0].time;
@@ -90,7 +94,7 @@ const changeDashboard = (cityName, fiveWeather) =>{
     dataElement.setAttribute('data-weather', JSON.stringify(fiveWeather));
 }
 
-
+// get data based on selected time
 document.getElementById('forecast-time').addEventListener('change', async (event) =>{
     let selectedTime = event.target.value;
     let cityName = document.getElementById('main-title').textContent.split(' ').slice(2).join(' ');
@@ -108,9 +112,80 @@ document.getElementById('forecast-time').addEventListener('change', async (event
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         let data = await response.json();
-        changeDashboard(data.cityName, data.fiveWeather);
-        console.log(data);
+        changeFiveDashboard(data.fiveWeather);
     } catch(error){
         console.error('Error:', error);
     }
 })
+
+// One Day click effect mouse down (click)
+document.querySelectorAll('.one-day').forEach((element) => {
+    element.addEventListener('mousedown', () => {
+        element.classList.add('clicked');
+    })
+})
+
+// One Day click effect mouse up (unclick)
+document.addEventListener('mouseup', () => {
+    document.querySelectorAll('.clicked').forEach((element) => {
+        element.classList.remove('clicked');
+    }) 
+})
+
+
+// 
+
+const changeDailyDashboard = (dailyWeather, feature) => {
+    const weatherDataDiv = document.getElementById('dailyWeatherData');
+    weatherDataDiv.setAttribute('daily-data-weather', JSON.stringify(dailyWeather));
+    createGraph(feature);
+}
+
+document.getElementById('daily-date').addEventListener('change', async (event) =>{
+    let selectedDate = event.target.value;
+    let cityName = document.getElementById('main-title').textContent.split(' ').slice(2).join(' ');
+    let feature = document.querySelector('.button-clicked').value
+    console.log('Feature: '+feature);
+    try{
+        let response = await fetch('/change-date', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({date: selectedDate, cityName, feature})
+        })
+
+        if(!response.ok){
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        let data = await response.json();
+        changeDailyDashboard(data.dailyWeather, data.feature);
+
+        //Change forecast date showin
+        let dateElement = document.querySelector('#daily-title-text').querySelector('h3');
+        dateElement.textContent = `for the ${data.dailyWeather[0].date}`;
+
+    } catch(error){
+        console.error('Error:', error);
+    }
+})
+
+
+// Daily Info Change
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelector('#daily-info-buttons').querySelectorAll('button');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            buttons.forEach(btn => {
+                btn.classList.remove('button-clicked');
+            });
+            button.classList.add('button-clicked');
+
+            const feature = button.value;
+            createGraph(feature);
+
+        });
+    });
+});
+

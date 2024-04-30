@@ -41,7 +41,7 @@ body{
     margin: 25px;
 }
 #header-container a:hover{
-    color: #58C483;
+    color: rgba(75, 192, 192, 0.2);
 }
 
 #header-container button{
@@ -56,10 +56,10 @@ body{
 }
 
 #header-container button:hover{
-    color: #58C483;
+    color: rgba(75, 192, 192, 1);
     /*background: #515355;*/
     border-radius: 200px;
-    border-color: #58C483;
+    border-color: rgba(75, 192, 192, 1);
 }
 
 .button-active{
@@ -85,9 +85,12 @@ body{
 #main-title{
     font-size: 60px;
     text-align: center;
+    font-weight: 100;
 }
 
-#main-title h1{
+
+#main-title-text{
+    font-weight: 600;
 }
 
 #main-space{
@@ -134,7 +137,15 @@ body{
 }
 #city-search:focus::placeholder{
     color: transparent;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+
 }
+
+#city-search:focus{
+    outline: none;
+
+}
+
 .search-container{
     display: flex;
     flex: 1;
@@ -232,10 +243,10 @@ datalist{
 }
 
 #forecast-time{
-    margin-right: 50px;
-    color: black;
-    background: #465D91;
-    border: none;
+    margin-right: 20px;
+    color: white;
+    background: rgba(70,93,145,0.3);
+    border: 3px solid #344361;
     border-radius: 25px;
     width: 150;
     height: 30px;
@@ -254,6 +265,15 @@ datalist{
     margin: 10px;
     justify-content: center;
     align-items: center;
+    transition: all 0.1s ease 0s
+}
+
+.one-day:hover{
+    background: rgba(70,93,145,0.1);
+}
+
+.one-day.clicked{
+    background: black;
 }
 
 .one-day p{
@@ -276,6 +296,79 @@ datalist{
     font-size: 20px;
 }
 
+#myChart {
+    width: 100% !important;
+    height: 420px  !important;
+}
+
+#daily-info-container{
+    display: flex;
+    flex-direction: column;
+    background: rgba(70,93,145,0.3);
+    border: 3px solid #344361;
+    border-radius: 25px;
+    margin: 10px;
+}
+
+#daily-info-buttons{
+    display: flex;
+    text-align: center;
+    margin: 5px 15px 0 0;
+    justify-content: right;
+}
+
+#daily-info-buttons button{
+    margin-right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 17px;
+}
+
+
+#daily-info-buttons button:hover{
+    cursor: pointer;
+}
+
+.button-clicked{
+    text-decoration: underline;
+}
+
+
+#daily-input-options{
+    display: flex;
+}
+
+.daily-select{
+
+    border: 3px solid #344361;
+    background: rgba(70,93,145,0.3);
+    border-radius: 25px;
+}
+
+#daily-date{
+    margin-right: 20px;
+    width: 150px;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+/*
+
+#forecast-time{
+    margin-right: 20px;
+    color: white;
+    background: rgba(70,93,145,0.3);
+    border: 3px solid #344361;
+    border-radius: 25px;
+    width: 150;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+}
+
+*/
 /*!         Right Side         */
 
 #right-side{
@@ -288,11 +381,9 @@ datalist{
     height: 125px;
     border-bottom: 25px solid #344361;
     align-items: center;
+    justify-content: center;
 }
 
-.right-date{
-    padding-left: 25px;
-}
 
 .right-date p.right-dow{
     font-size: 20px; /* This is your desired font size */
@@ -368,4 +459,123 @@ footer{
 
 #weatherData{
     display: none;
+}
+
+
+
+/*!   Index  !*/
+
+#index-main-container{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 70%;
+    margin: 0 auto;
+}
+
+#index-main-space{
+    display: flex;
+    flex-direction: column;
+}
+
+.city-weather{
+    display: flex;
+    border: 3px solid #344361;
+    background: rgba(70,93,145,0.3);
+    border-radius: 25px;
+    margin: 25px 0;
+    height: 150px;
+}
+.city-title-container{
+    display: flex;
+    flex-direction: column;
+    border-right: 5px solid #344361;
+    align-items: center;
+    justify-content: center;
+    min-width: 30%;
+    padding: 7px 15px 25px 15px;
+
+}
+
+.city-weather-form button {
+    width: 100%;
+    height: 100%;
+}
+
+.city-title{
+    display: flex;
+    margin: 0 0 20px 0;
+}
+
+.city-title h1{
+    font-size: 35px;
+}
+
+.city-title p{
+    font-size: 16px;
+}
+
+.city-info{
+    display: flex;
+    margin-top: 23px;
+}
+
+.city-info .rise{
+    margin-right: 30px;
+}
+
+.city-info .set{
+    margin-left: 30px;
+}
+
+.hour-container{
+    display: flex;
+    margin: 5px 15px;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.hour-box{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center
+}
+
+.hour-box img{
+    height: 90px;
+    width: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+}
+
+.hour-time{
+    text-align: center;
+    color: #4ECDC4;
+}
+
+.hour-info{
+    display: flex;
+    justify-content: center;
+}
+
+.hour-info-temp{
+    margin-right: 15px;
+}
+
+.hour-ingo-humid{
+    margin-left: 15px;
+}
+
+.hour-percent-symbol{
+    font-size: 12px;
+}
+
+..city-weather-form .city-weather{
+    border-radius: 25px;
+}
+
+.city-weather-form .city-weather:hover{
+    cursor: pointer;
 }

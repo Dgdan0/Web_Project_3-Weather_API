@@ -10,7 +10,7 @@
     <div id="main-container">
         <%if(locals.cityName){%>
             <div id="main-title-container">
-                <h1 id="main-title">Weather at <%=locals.cityName%></h1>
+                <h1 id="main-title">Weather at <span id="main-title-text"><%=locals.cityName%></span></h1>
             </div>
             <%}else{%>
                 <h1 id="main-title">Welcome</h1>
@@ -52,11 +52,25 @@
                     <div id="daily-title">
                         <div id="daily-title-text">
                             <h2>Daily forecast</h2>
-                            <h3> for the 25/9</h3>
+                            <h3> for the <%=locals.dailyWeather[0].date%></h3>
+                        </div>
+                        <div id="daily-input-options">
+                            <select id="daily-date" class="daily-select">
+                                <option value="" disabled selected hidden>Select date</option>
+                                <%for(let i = 0; i<locals.dateOptions.length; i++){%>
+                                    <option value="<%=locals.dateOptions[i]%>"><%=locals.dateOptions[i]%></option>
+                                <%}%>
+                            </select>
                         </div>
                     </div>
-                    <div class="daily-info-container">
-                        
+                    <div id="daily-info-container">
+                        <div id="daily-info-buttons">
+                            <button value="temp" class="button-clicked" >Temperature</button>
+                            <button value="humidity" >Humidity</button>
+                            <button value="wind" >Wind</button>
+                        </div>
+                        <canvas id="myChart" width="150" height="150"></canvas>
+
 
                     </div>
                 </div>
@@ -69,7 +83,21 @@
     <%- include('partials/footer.ejs')%>   
 
     <div id="weatherData" data-weather='<%- JSON.stringify(locals.fiveWeather) %>' style="display: none;"></div>
-    <script src="/scripts.js"></script>
+    <div id="dailyWeatherData" daily-data-weather='<%- JSON.stringify(locals.dailyWeather) %>' style="display: none;"></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="/createGraph.js"></script>
+    <script type="module" src="/scripts.js"></script>
     <script src="/autoCompleteCities.js"></script>
+
+    <script type="module" id="graph-craetor">
+        import { createGraph } from '/createGraph.js';
+
+        // You could directly invoke createGraph here or wait for the DOM content to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const feature = '<%= locals.dailyFeature %>'; // Assuming you passed 'feature' from your server-side code
+            createGraph(feature);
+        });
+    </script>
+
 </body>
 </html>

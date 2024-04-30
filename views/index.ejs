@@ -7,13 +7,43 @@
 <body>
     <%- include('partials/header.ejs')%>
     
-    <div id="main-container">
-        <h1 id="main-title">Welcome Back</h1>
-        <div id="main-space">
-            <h4>Wow</h4>
+    <div id="index-main-container">
+        <h1 id="main-title">Welcome To My Weather</h1>
+        <div id="index-main-space">
+            <% locals.citiesWeather.forEach((cityWeatherObj) => {
+                let cityInfo = cityWeatherObj[Object.keys(cityWeatherObj)[0]][0];
+                let weatherData = cityWeatherObj[Object.keys(cityWeatherObj)[0]][1]; %>
+                <form action="/submit-city" method="POST" class="city-weather-form">
+                    <input type="hidden" name="city" value="<%= Object.keys(cityWeatherObj)[0] %>" />
+                    <button type="submit" class="city-weather">
+                        <div class="city-title-container">
+                            <div class="city-title">
+                                <h1><%= Object.keys(cityWeatherObj)[0] %></h1>
+                                <p><%= cityInfo.country %></p>
+                            </div>
+                            <div class="city-info">
+                                <p class="rise">Sunrise: <%= cityInfo.sunrise %></p>
+                                <p class="set">Sunset: <%= cityInfo.sunset %></p>
+                            </div>
+                        </div>
+                        <div class="hour-container">
+                            <% weatherData.forEach((weather) => { %>
+                                <div class="hour-box">
+                                    <p class="hour-time"><%= weather.time %>:00</p>
+                                    <img src="https://openweathermap.org/img/wn/<%= weather.icon %>@2x.png" alt="Weather icon">
+                                    <div class="hour-info">
+                                        <p class="hour-info-temp"><%= weather.temp %><span class="hour-degree-symbol">&deg;</span></p>
+                                        <p class="hour-info-humid"><%= weather.humidity %><span class="hour-percent-symbol">%</span></p>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                    </button>
+                </form>
+            <% }); %>
         </div>
+            
     </div>
-
     <%- include('partials/footer.ejs')%>
 </body>
 </html>
