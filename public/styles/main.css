@@ -485,7 +485,17 @@ footer{
     border-radius: 25px;
     margin: 25px 0;
     height: 150px;
+    transition: all 0.3s ease 0s;
 }
+
+.city-weather:hover{
+    background: rgba(70,93,145,0.1);
+}
+
+.city-weather-form button:active{
+    background: black;
+}
+
 .city-title-container{
     display: flex;
     flex-direction: column;

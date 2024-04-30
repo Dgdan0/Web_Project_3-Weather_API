@@ -21,8 +21,10 @@ const getRandomCities = async (randNum) =>{
             randCity = cities[Math.floor(Math.random() * cities.length)];
         }
         let randWeather = await generateWeatherData(randCity,9,formattedCurrDate);
-        console.log(randCity);
-        console.log(randWeather.dailyWeather)
+
+        randWeather.cityData.name = randCity;
+        console.log(randWeather.cityData);
+
         citiesWeather.push({[randWeather.cityData.name]: [randWeather.cityData, randWeather.dailyWeather]});
     }
     return citiesWeather;
@@ -60,13 +62,15 @@ const generateWeatherData = async (city, time, date) => {
         let cityLat = cityData[0].lat, cityLon = cityData[0].lon;
         let cityName = cityData[0].name;
         let weatherData = await fetchWeatherData(cityLat, cityLon);
+        let selectedCityData = getCityData(weatherData)
+        selectedCityData.name = cityName;
         if(weatherData){
             let retWeather = {
                 fiveWeather:getFiveWeatherData(weatherData, time),
                 dailyWeather: getDailyWeatherData(weatherData, date),
                 dateOptions: getDateOptions(weatherData),
                 cityName: cityName,
-                cityData: getCityData(weatherData)
+                cityData: selectedCityData,
             };
 
 
@@ -103,7 +107,6 @@ const getFiveWeatherData = (weather, time) => {
 //? Get Daily Weather
 const getFirstWeatherTime = (weather, date) =>{
     for(let i=0; i<weather.list.length; i++){
-        console.log(weather.list[i].dt_txt);
         if(weather.list[i].dt_txt.includes(date)){
             return i;
         }
@@ -114,7 +117,6 @@ const getFirstWeatherTime = (weather, date) =>{
 const getCityData = (weather) =>{
     let wc = weather.city;      // Easier
     let city = new City(wc.name, wc.country, wc.population, wc.sunrise, wc.sunset, wc.timezone);
-    console.log(city);
     return city;
 }
 
@@ -124,7 +126,6 @@ const getDailyWeatherData = (weather, date) => {
     let retWeather = [];
     if(index+timeLength > weather.list.length){    //! Check that this works later
         index = weather.list.length - timeLength;
-        console.log('LESS THEN 24, NEED TO CHANGE INDEX');
     }
     for(let i=index; i<index+timeLength; i++){
         let tempWeather = getWeatherClass(weather.list[i]);

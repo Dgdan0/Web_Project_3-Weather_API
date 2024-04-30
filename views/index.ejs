@@ -14,11 +14,11 @@
                 let cityInfo = cityWeatherObj[Object.keys(cityWeatherObj)[0]][0];
                 let weatherData = cityWeatherObj[Object.keys(cityWeatherObj)[0]][1]; %>
                 <form action="/submit-city" method="POST" class="city-weather-form">
-                    <input type="hidden" name="city" value="<%= Object.keys(cityWeatherObj)[0] %>" />
+                    <input type="hidden" name="city" value="<%= cityInfo.name %>" />
                     <button type="submit" class="city-weather">
                         <div class="city-title-container">
                             <div class="city-title">
-                                <h1><%= Object.keys(cityWeatherObj)[0] %></h1>
+                                <h1><%= cityInfo.name %></h1>
                                 <p><%= cityInfo.country %></p>
                             </div>
                             <div class="city-info">

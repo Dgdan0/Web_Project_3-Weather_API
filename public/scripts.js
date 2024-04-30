@@ -7,9 +7,7 @@ document.querySelectorAll('.one-day').forEach( (element) => {
         let weatherData = JSON.parse(document.getElementById('weatherData').dataset.weather);
 
         let index = parseInt((element.className.split(' '))[1].split('-')[2]);
-        console.log(index);
         let dayWeatherData = weatherData[index];
-        console.log(dayWeatherData);
 
         document.getElementById('right-side').innerHTML = `
         <div class="right-date">
@@ -125,6 +123,15 @@ document.querySelectorAll('.one-day').forEach((element) => {
     })
 })
 
+// Home page add click effect
+document.querySelectorAll('.city-weather').forEach((element) => {
+    element.addEventListener('mousedown', () => {
+        console.log('click');
+        element.classList.add('clicked');
+    })
+})
+
+
 // One Day click effect mouse up (unclick)
 document.addEventListener('mouseup', () => {
     document.querySelectorAll('.clicked').forEach((element) => {
@@ -145,7 +152,6 @@ document.getElementById('daily-date').addEventListener('change', async (event) =
     let selectedDate = event.target.value;
     let cityName = document.getElementById('main-title').textContent.split(' ').slice(2).join(' ');
     let feature = document.querySelector('.button-clicked').value
-    console.log('Feature: '+feature);
     try{
         let response = await fetch('/change-date', {
             method: 'POST',

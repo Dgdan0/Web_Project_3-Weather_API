@@ -22,14 +22,14 @@ app.use(express.json());
 // Server //
 app.get("/", async (req, res) =>{
     let citiesWeather = await gwd.getRandomCities(4);
-    console.log(citiesWeather);
+
+    citiesWeather.forEach((weatherObj) => {
+        let cityInfo = weatherObj[Object.keys(weatherObj)[0]][0];
+        console.log("cities:"+cityInfo.name);
+    });
     res.render('index.ejs', {
         citiesWeather,
     });
-})
-
-app.get("/dashboard", (req, res) => {
-    res.render('dashboard.ejs');
 })
 
 app.post("/submit-city",async (req, res) =>{
