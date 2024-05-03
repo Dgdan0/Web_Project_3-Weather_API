@@ -36,8 +36,16 @@ app.post("/submit-city",async (req, res) =>{
     const cityName = req.body.city;
     const time = '9';
     const date = new Date();
-    const formattedCurrDate = `${date.getMonth()+1}-${date.getDate()}`;
+    let dateDay = date.getDate().toString();
+    //If date is one digit
+    if(dateDay.length == 1){dateDay = '0'+date.getDate().toString()}
+    console.log('DATE: ',dateDay);
+
+    const formattedCurrDate = `${date.getMonth()+1}-${dateDay}`;
+    console.log('Date',formattedCurrDate);
     let weatherData = await gwd.generateWeatherData(cityName, time, formattedCurrDate);
+
+    // console.log(weatherData);
 
     if(weatherData.error){
         console.log(weatherError.error);

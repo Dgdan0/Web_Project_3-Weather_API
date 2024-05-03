@@ -12,7 +12,9 @@ let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "S
 const getRandomCities = async (randNum) =>{
     let citiesWeather = [];
     const date = new Date();
-    const formattedCurrDate = `${date.getMonth()+1}-${date.getDate()}`;
+    let dateDay = date.getDate().toString()
+    if(dateDay.length == 1){dateDay = '0' + dateDay}
+    const formattedCurrDate = `${date.getMonth()+1}-${dateDay}`;
 
     for(let i=0; i<randNum; i++){
         
@@ -131,6 +133,7 @@ const getDailyWeatherData = (weather, date) => {
         let tempWeather = getWeatherClass(weather.list[i]);
         retWeather.push(tempWeather);
     }
+    console.log('Return Weather: ', index);
     //* Get Data for options menu 
     return retWeather;
 }
