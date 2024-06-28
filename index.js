@@ -2,12 +2,13 @@ import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
 import * as gwd from "./utils/getWeatherDashboard.js";
+import dotenv from 'dotenv';
 
 
-
+dotenv.config();
 const app = express();
 const port = 3000;
-const apiKey = "6438e532cef6304b313ea1b9fe1351bd";
+const apiKey = process.env.API_KEY;
 const API_URL = "https://api.openweathermap.org";
 
 

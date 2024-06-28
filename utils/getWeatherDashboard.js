@@ -2,36 +2,35 @@ import axios from "axios";
 import Weather from "./Weather.js";
 import City from "./City.js";
 
-const apiKey = "6438e532cef6304b313ea1b9fe1351bd";
+const apiKey = "9918b87b591ed49ddbbc8aac797a78b0";
 const API_URL = "https://api.openweathermap.org";
 
 const cities = ["New York", "Los Angeles", "London", "Paris", "Tokyo", "Hong Kong", "Singapore", "Moscow", "Sydney", "Rio de Janeiro", "Cairo", "Cape Town", "Dubai", "Bangkok", "Berlin", "Beijing", "Toronto", "Mumbai", "Mexico City", "Johannesburg", "Buenos Aires", "Istanbul", "São Paulo", "Lagos", "Jakarta", "Seoul", "Shanghai", "Karachi", "Kuala Lumpur", "Bangkok", "Jakarta", "Delhi", "Lima", "Tehran", "Ankara", "Baghdad", "Alexandria", "Rome", "Madrid", "Vienna", "Athens", "Mexico City", "Montreal", "Vancouver", "Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide", "Auckland", "Wellington", "Christchurch", "Cape Town", "Durban", "Pretoria", "Helsinki", "Oslo", "Stockholm", "Copenhagen", "Reykjavik", "Zurich", "Geneva", "Amsterdam", "Brussels", "Prague", "Budapest", "Warsaw", "Dublin", "Lisbon", "Jerusalem", "Tel Aviv", "Haifa", "Beer Sheva", "Ashdod", "Rishon LeZion", "Petah Tikva", "Netanya", "Holon", "Bnei Brak", "Bat Yam", "Ramat Gan", "Ashkelon", "Rehovot", "Herzliya", "Kfar Saba", "Lod", "Nahariya", "Raanana", "Modiin", "Tiberias", "Zefat", "Eilat", "Yavne", "Kiryat Gat", "Kiryat Shmona", "Carmiel", "Afula", "Hadera", "Ariel", "Dimona"];
 let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 //? Get X random cities
-const getRandomCities = async (randNum) =>{
+const getRandomCities = async (randNum) => {
     let citiesWeather = [];
     const date = new Date();
     let dateDay = date.getDate().toString()
-    if(dateDay.length == 1){dateDay = '0' + dateDay}
-    const formattedCurrDate = `${date.getMonth()+1}-${dateDay}`;
-
-    for(let i=0; i<randNum; i++){
-        
-        let randCity = cities[Math.floor(Math.random() * cities.length)]
-        while (citiesWeather.some(cityWeather => Object.keys(cityWeather)[0] === randCity.name)) {
-            randCity = cities[Math.floor(Math.random() * cities.length)];
-        }
-        let randWeather = await generateWeatherData(randCity,9,formattedCurrDate);
-
-        randWeather.cityData.name = randCity;
-        console.log(randWeather.cityData);
-
-        citiesWeather.push({[randWeather.cityData.name]: [randWeather.cityData, randWeather.dailyWeather]});
+    if (dateDay.length == 1) {
+        dateDay = '0' + dateDay;
     }
-    return citiesWeather;
+    const formattedCurrDate = `${date.getMonth() + 1}-${dateDay}`;
 
-}
+    for (let i = 0; i < randNum; i++) {
+        let randCity;
+        do {
+            randCity = cities[Math.floor(Math.random() * cities.length)];
+        } while (citiesWeather.some(cityWeather => Object.keys(cityWeather)[0] === randCity.name));
+        
+        let randWeather = await generateWeatherData(randCity, 9, formattedCurrDate);
+
+        citiesWeather.push({ [randCity.name]: [randWeather.cityData, randWeather.dailyWeather] });
+    }
+
+    return citiesWeather;
+};
 
 
 //? Get City data based on the city got from API
@@ -64,7 +63,9 @@ const generateWeatherData = async (city, time, date) => {
         let cityLat = cityData[0].lat, cityLon = cityData[0].lon;
         let cityName = cityData[0].name;
         let weatherData = await fetchWeatherData(cityLat, cityLon);
-        let selectedCityData = getCityData(weatherData)
+        let selectedCityData = getCityData(weatherData);
+        
+        
         selectedCityData.name = cityName;
         if(weatherData){
             let retWeather = {

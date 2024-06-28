@@ -2,17 +2,19 @@ import { createGraph } from '/createGraph.js';
 
 
 // Show One-Day Data on the right side
-document.querySelectorAll('.one-day').forEach( (element) => {
+document.querySelectorAll('.one-day').forEach((element) => {
     element.addEventListener('click', () => {
         let weatherData = JSON.parse(document.getElementById('weatherData').dataset.weather);
-
         let index = parseInt((element.className.split(' '))[1].split('-')[2]);
         let dayWeatherData = weatherData[index];
 
-        document.getElementById('right-side').innerHTML = `
+        let rightSide = document.getElementById('right-side') || document.getElementById('right-side-hidden');
+
+        // Update the inner HTML of right-side
+        rightSide.innerHTML = `
         <div class="right-date">
             <p>${dayWeatherData.date}</p>
-            <p class="right-dow">${dayWeatherData.dow}
+            <p class="right-dow">${dayWeatherData.dow}</p>
         </div>
         <div class="right-icon">
             <img src="https://openweathermap.org/img/wn/${dayWeatherData.icon}@2x.png" alt="Weather icon">
@@ -29,13 +31,13 @@ document.querySelectorAll('.one-day').forEach( (element) => {
             </div> 
             <div class="info-container">
                 <i class="fa-solid fa-wind"></i>
-                <p>wind: <span class="info">${dayWeatherData.wind}</span><span class="unit">km/h</span></p>
-
+                <p>Wind: <span class="info">${dayWeatherData.wind}</span><span class="unit">km/h</span></p>
             </div> 
         </div>
-        `
-    })
-})
+        `;
+    });
+});
+
 
 // Change Five Day forecast dashboard data based on selected time
 const changeFiveDashboard = (fiveWeather) =>{
@@ -193,5 +195,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
         });
     });
+});
+
+
+//?     Right side hide
+document.addEventListener('DOMContentLoaded', () => {
+    let lastClicked = null;
+
+    // Loop through each one-day container and add a click event listener
+    for (let i = 0; i < 5; i++) {
+        document.querySelector(`.one-day-${i}`).addEventListener('click', function () {
+            // Update rightSide to reference the correct element
+            let rightSide = document.getElementById('right-side') || document.getElementById('right-side-hidden');
+            if (lastClicked === i) {
+                // Toggle the right-side container
+                if (rightSide.id == 'right-side-hidden') {
+                    console.log(rightSide.id)
+                    rightSide.id = 'right-side';
+                } else {
+                    console.log(rightSide.id)
+                    rightSide.id = 'right-side-hidden';
+                }
+            }else{
+                rightSide.id = 'right-side';
+            }
+            lastClicked = i;
+            console.log(lastClicked)
+
+        });
+    }
 });
 

@@ -104,8 +104,19 @@ body{
     flex-direction: column;
     width: 15%;
     background: rgba(70,93,145,0.3);
+    border: 3px solid #344361;
     border-radius: 20px;
+    transition: all 0.3s ease 0s;
 }
+
+#right-side-hidden {
+    width: 0;
+    border: 0;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    min-width: 0;
+}
+
 
 #left-side{
     flex: 1;
@@ -371,9 +382,7 @@ datalist{
 */
 /*!         Right Side         */
 
-#right-side{
-    border: 3px solid #344361;
-}
+
 
 .right-date{
     display: flex;
